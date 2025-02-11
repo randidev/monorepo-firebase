@@ -11,6 +11,8 @@ export const fetchUser = async (req: Request, res: Response) => {
     const users = await getUsers();
     res.status(200).json({ message: "User fetched", users });
   } catch (error: any) {
+    console.log({ error });
+
     res.status(500).json({ error: error.message });
   }
 };

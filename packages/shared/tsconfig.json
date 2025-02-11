@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "declaration": true, // Generates type declarations
+    "skipLibCheck": true,
+    "strict": true
+  },
+  "include": ["src"]
+}

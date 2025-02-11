@@ -31,6 +31,28 @@ npm install
 npm run dev
 ```
 
+To use Firebase emulator, you can follow this:
+
+```bash
+# go to the backend repo directory
+cd apps/backend-repo
+
+# start firebase emulator
+firebase emulators:start --only functions
+
+OR
+
+# go to the functions directory first
+cd apps/backend-repo/functions
+
+# then serve the emu
+npm run serve
+```
+
+By running the above command, firebase will give the endpoint like this `http://127.0.0.1:5001/ebuddy-71246/us-central1/fetchUserData`.
+
+Then, on the frontend we can change the base API URL (`/src/config/urls.ts`) in this variable `BE_API` to `http://127.0.0.1:5001/ebuddy-71246/us-central1` so the frontend able to use the API from Firebase emulator
+
 ### Self Reflection
 
 As per technical requirements, this app needs to built using Monorepo and integrate with Firebase auth and Firestore databases which things I haven't work before to be honest since I use MERN stack with Nextjs Typescript on the Frontend for daily basis. But after completing the app (which far from perfect), I realize that there are lot of new things that I can learn if I joined the company and that's why I really excited with the new opportunity since I love to keep up to date with technologies and keep growing. I'm totaally fine if the technical team think my app doesn't fit with the criteria since from this technical assignment I already learn how to connect with Firebase etc and also setuping Monorepo with Turbo which is new architecture for me and it will help me for sure for my professional career.

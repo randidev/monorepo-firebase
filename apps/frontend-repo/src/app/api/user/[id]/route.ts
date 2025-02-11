@@ -35,7 +35,8 @@ export async function DELETE(
     const id = (await params).id;
 
     const { data, status } = await BEInstance.delete(
-      URLS.BE_DELETE_USER + "/" + id
+      URLS.BE_DELETE_USER + "/" + id,
+      { params: { id } }
     );
 
     if (status !== 200)

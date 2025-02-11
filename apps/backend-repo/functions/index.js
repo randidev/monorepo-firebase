@@ -20,16 +20,22 @@ const authenticate = (handler) => {
   });
 };
 
+async function getUsers() {
+  const usersSnapshot = await usersCollection.get();
+  const users = usersSnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+
+  return users;
+}
+
 // Fetch all users
 exports.fetchUserData = authenticate(async (req, res) => {
   try {
-    const usersSnapshot = await usersCollection.get();
-    const users = usersSnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
+    const users = await getUsers();
 
-    res.status(200).json(users);
+    res.status(200).json({ users });
   } catch (error) {
     console.error("Error fetching users:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -46,7 +52,9 @@ exports.addUserData = authenticate(async (req, res) => {
     }
 
     const newUserRef = await usersCollection.add({ name, email, age });
-    res.status(201).json({ id: newUserRef.id, name, email, age });
+    const users = await getUsers();
+
+    res.status(201).json({ users });
   } catch (error) {
     console.error("Error adding user:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -56,8 +64,7 @@ exports.addUserData = authenticate(async (req, res) => {
 // Update an existing user
 exports.updateUserData = authenticate(async (req, res) => {
   try {
-    const { id } = req.query;
-    const { name, email, age } = req.body;
+    const { name, email, age, id } = req.body;
 
     if (!id) {
       return res.status(400).json({ error: "User ID is required" });
@@ -71,7 +78,10 @@ exports.updateUserData = authenticate(async (req, res) => {
     }
 
     await userRef.update({ name, email, age });
-    res.status(200).json({ id, name, email, age });
+
+    const users = await getUsers();
+
+    res.status(200).json({ users });
   } catch (error) {
     console.error("Error updating user:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -95,7 +105,10 @@ exports.deleteUserData = authenticate(async (req, res) => {
     }
 
     await userRef.delete();
-    res.status(200).json({ message: "User deleted successfully" });
+
+    const users = await getUsers();
+
+    res.status(200).json({ message: "User deleted successfully", users });
   } catch (error) {
     console.error("Error deleting user:", error);
     res.status(500).json({ error: "Internal server error" });

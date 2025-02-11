@@ -43,6 +43,7 @@ export default function UserTableTemplate() {
       updatedRow = { ...addedUser, isNew: false }; // Ensure new ID is assigned
     } else {
       await updateUser(newRow.id, {
+        id: newRow.id,
         name: newRow.name,
         email: newRow.email,
         age: newRow.age,

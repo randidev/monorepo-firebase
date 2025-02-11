@@ -49,9 +49,9 @@ cd apps/backend-repo/functions
 npm run serve
 ```
 
-By running the above command, firebase will give the endpoint like this `http://127.0.0.1:5001/ebuddy-71246/us-central1/fetchUserData`.
+By running the above command, firebase will give the endpoint like this `http://localhost:5001/ebuddy-71246/us-central1/fetchUserData`.
 
-Then, on the frontend we can change the base API URL (`/src/config/urls.ts`) in this variable `BE_API` to `http://127.0.0.1:5001/ebuddy-71246/us-central1` so the frontend able to use the API from Firebase emulator
+Then, on the frontend we can change the base API URL (`/src/config/urls.ts`) in this variable `BE_API` to `http://localhost:5001/ebuddy-71246/us-central1` and the rest of the endpoints needs to be change to `camel case` such as `fetchUserData` instead of `kebab-case` so the frontend able to use the API from Firebase emulator
 
 ### Self Reflection
 
